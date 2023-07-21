@@ -1,0 +1,60 @@
+<div class="main-container-grey h-100 w-100 align-middle px-4 text-white">
+<div class="general-container text-white">
+<br><br>
+
+<div class="card w-75">
+  <div class="card-body text-black-50">
+    <h3 class="card-title text-center text-primary"><i class="fas fa-user-circle"></i> My Profile</h3>
+    <p class="card-text">Name: {{user.name}}</p>
+    <p class="card-text"><p>E-mail: {{user.email}}</p> 
+
+    
+  </div>
+</div>
+  {{#if message}}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+  {{/if}}
+<br><br>
+
+<h3 class="text-center text-primary">My Dates</h3>
+<br>
+<ul>
+{{#each userDates}}
+{{#if this.cuisines}}
+<b>Location:</b> {{this.date_location_name}} <br>
+<b>Cuisines:</b> {{this.cuisines}} <br>
+<b>Average cost for two:</b> {{this.AvgCostforTwo}}€ <br>
+<b>Address:</b> {{this.address}} <br>
+{{/if}}
+{{#if this.website}}
+<b>Location:</b> {{this.date_location_name}} <br>
+<b>Address:</b> {{this.address}} <br>
+<b>Website:</b><a href="{{this.website}}"> {{this.website}}</a> <br>
+{{/if}}
+{{#if this.director}}
+<b>Title:</b> {{this.date_location_name}} <br>
+<b>Location:</b> {{this.address}} <br>
+<b>Director:</b> {{this.director}} <br>
+{{/if}}
+<br>
+<a href="/location" class="btn btn-outline-success">Save another Date!</a>
+<a href="/{{this._id}}/delete" class="btn btn-outline-danger">Delete</a>
+
+<form action="/send-email" method="post">
+  <label for=""><b>Email:</b></label>
+  <input type="email" name="email" id="" placeholder="Your date e-mail here">
+  <input type="time" name="dateTime">
+  <input type="hidden" value="{{this._id}}" name="dateId">
+<button class="btn btn-info" type="submit">Send details to my Date!</button>
+</form>
+<br><br>
+{{/each}}
+</ul>
+
+<br>
+</div>

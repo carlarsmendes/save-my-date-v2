@@ -1,0 +1,44 @@
+<div class="main-container-primary h-100 w-100 align-middle">
+<div class="general-container align-middle">
+  
+<br>
+
+ <div class="card-body bg-primary">
+
+<div class="card text-center">
+  <h5 class="card-header text-white text-bold bg-primary ">login form</h5>
+  <div class="card-body bg-primary">
+    
+<form action="/auth/login" method="POST" id="form-container">
+
+  <div class="form-group text-white text-bold">
+  <label for="email">E-mail</label>
+  <input id="email" type="text" name="email" placeholder="Your e-mail here"  class="form-control" >
+</div>
+
+<div class="form-group text-white text-bold">
+  <label for="password">Password</label>
+  <input id="password" type="password" name="password" placeholder="Your password" class="form-control">
+ </div>
+
+  <br>
+  {{#if message }}
+    <div class="error-message">{{ message }}</div>
+  {{/if}}
+    <br>
+
+  <button class="btn btn-primary btn-block btn-light btn-lg font-weight-bold">Login</button>
+
+  
+</form>
+  </div>
+  <div class="card-footer text-muted bg-primary">
+   <p class="account-message text-white">
+    <small>Don't have an account yet?
+    <a href="/auth/signup"  class="badge badge-secondary">Signup</a></small>
+  </p>
+
+</div>
+</div>
+</div>
+

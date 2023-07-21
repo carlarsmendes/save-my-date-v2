@@ -1,0 +1,64 @@
+ <div class="main-container-grey h-100 w-100 align-middle">
+ <div class="general-container">
+<br> <br>
+  <h2 class="h2 text-center text-white font-weight-bold">Where are you </h2>
+    <h2 class="text-center text-white font-weight-bold">right now?</h2><br>
+  <h4 class="text-center text-white">Don't worry about the traffic</h4>
+    <h5 class="text-center text-white">We'll only find places near you!</h5>
+  <br> <br>
+   <form action="/date-type" method="get">
+    {{!-- <input type="text" class="form-control" name="address" placeholder="Type your address"> --}}
+    <input type="hidden" name="lat">
+    <input type="hidden" name="lng">
+    <button id="get-user-location" class="btn btn-primary  btn-block btn-lg font-weight-bold"><i class="fas fa-map-marker-alt"></i> Get your location</button>
+     <br>
+      <button type="submit" id="next-button" class="btn btn-outline-primary btn-block d-none btn-block btn-lg font-weight-bold">Next</button>
+   </form>
+    <br>
+      <div id="map" style="width:100%;height:320px"></div>
+       <br><br>
+   
+</div>
+</div>
+</div>
+</div>
+
+<script>
+
+
+  mapboxgl.accessToken = 'pk.eyJ1IjoiY2FybGFyc21lbmRlcyIsImEiOiJjanVsMWZtdjMwYTRvM3lvOGp5aWZ6cnJtIn0.xv9rm--YRNKdTJGHFYzi0g';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-9.154041, 38.709537],
+    zoom: 12
+  });
+
+
+  document.getElementById("get-user-location").onclick = function (event) {
+    event.preventDefault() // To don´t submit the form
+
+    document.getElementById('get-user-location').innerText = "Loading..."
+
+    console.log("Button clicked")
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        console.log(position.coords.latitude, position.coords.longitude)
+        let lat = position.coords.latitude
+        let lng = position.coords.longitude
+        document.querySelector("input[name=lat]").value = lat
+        document.querySelector("input[name=lng]").value = lng
+        map.setCenter([lng, lat])
+        map.setZoom(15)
+        var marker = new mapboxgl.Marker({color: 'red'}) // initialize a new marker
+        
+        .setLngLat([lng, lat]) // Marker [lng, lat] coordinates
+        .addTo(map);
+
+        document.getElementById('get-user-location').innerHTML = `<i class="fas fa-map-marker-alt"></i> Get your location`
+        document.getElementById('next-button').classList.remove('d-none')
+        // TODO: add a marker 
+      });
+    }
+  }
+</script>
